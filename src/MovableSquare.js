@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision }) {
-  const roomWidth = 1500;
-  const roomHeight = 800;
+  const roomWidth = 1500 - 10;
+  const roomHeight = 800 - 10;
   const squareSize = 50;
 
   const [position, setPosition] = useState({
@@ -24,7 +24,7 @@ function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision }) {
           }
 
           if (moveRight) {
-            x = Math.min(x + 10, roomWidth - squareSize);
+            x = Math.min(x + 10, roomWidth - squareSize - 10);
           }
 
           if (moveUp) {
@@ -32,7 +32,7 @@ function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision }) {
           }
 
           if (moveDown) {
-            y = Math.min(y + 10, roomHeight - squareSize);
+            y = Math.min(y + 10, roomHeight - squareSize - 10);
           }
 
           return { x, y };

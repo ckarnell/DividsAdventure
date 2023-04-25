@@ -77,32 +77,33 @@ function App() {
   }, []);
 
   return (
-    <div className="App" style={{ backgroundColor: 'white' }}>
+    <div className="App" style={{ backgroundColor: '#D3D3D3' }}>
       <header className="App-header" />
       <Inventory items={inventory} />
       <div style={{ position: 'relative', marginTop: '-475px' }}>
-        <Room>
-          {keyVisible && (
-            <Key />
-          )}
+        <Room key="firstRoom">
           <MovableSquare
             moveLeft={moveLeft}
             moveRight={moveRight}
             moveUp={moveUp}
             moveDown={moveDown}
-            onCollision={(obj) => {
+            onCollision={obj => {
               if (obj === 'key') {
                 handleKeyPickup();
               } else if (obj === 'door') {
-                window.inventory = inventory;
                 if (inventory[0]?.type?.name === 'Key') {
                   handleDoorOpen();
                 }
               }
             }}
           />
+          {keyVisible && <Key />}
         </Room>
         <Door isOpen={doorOpen} />
+    {doorOpen ? 
+          <Room style={{ top: '800px', borderTop: '0px' }} key="secondRoom">
+          </Room>
+      : null}
       </div>
     </div>
   );
