@@ -4,6 +4,7 @@ import Room from './Room';
 import MovableSquare from './MovableSquare';
 import Inventory from './Inventory';
 import Key from './Key';
+import Door from './Door';
 
 function App() {
   const [moveLeft, setMoveLeft] = React.useState(false);
@@ -71,7 +72,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: 'white' }}>
       <header className="App-header" />
       <Inventory items={inventory} />
       <div style={{ position: 'relative', marginTop: '-475px' }}>
@@ -89,6 +90,7 @@ function App() {
             onCollision={() => handleKeyPickup()}
           />
         </Room>
+        <Door />
       </div>
     </div>
   );
