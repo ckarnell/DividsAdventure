@@ -13,6 +13,7 @@ function App() {
   const [moveDown, setMoveDown] = React.useState(false);
   const [keyVisible, setKeyVisible] = React.useState(true);
   const [inventory, setInventory] = React.useState([null, null, null, null]);
+  const [doorOpen, setDoorOpen] = React.useState(false);
 
   function handleKeyPickup() {
     setKeyVisible(false);
@@ -21,6 +22,10 @@ function App() {
       updatedInventory[0] = <Key />;
       return updatedInventory;
     });
+  }
+
+  function handleDoorOpen() {
+    setDoorOpen(true);
   }
 
   React.useEffect(() => {
@@ -78,19 +83,26 @@ function App() {
       <div style={{ position: 'relative', marginTop: '-475px' }}>
         <Room>
           {keyVisible && (
-            <Key
-              onPickup={() => handleKeyPickup()}
-            />
+            <Key />
           )}
           <MovableSquare
             moveLeft={moveLeft}
             moveRight={moveRight}
             moveUp={moveUp}
             moveDown={moveDown}
-            onCollision={() => handleKeyPickup()}
+            onCollision={(obj) => {
+              if (obj === 'key') {
+                handleKeyPickup();
+              } else if (obj === 'door') {
+                window.inventory = inventory;
+                if (inventory[0]?.type?.name === 'Key') {
+                  handleDoorOpen();
+                }
+              }
+            }}
           />
         </Room>
-        <Door />
+        <Door isOpen={doorOpen} />
       </div>
     </div>
   );

@@ -44,25 +44,42 @@ function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision }) {
   }, [moveLeft, moveRight, moveUp, moveDown]);
 
   useEffect(() => {
-    const squareRect = document.getElementById('square').getBoundingClientRect();
-    const key = document.getElementById('body');
+    const key = document.getElementById('key');
+    const door = document.getElementById('door');
+    const squareRect = document.getElementById('movable-square').getBoundingClientRect();
+
     if (key) {
       const keyRect = key.getBoundingClientRect();
+
       if (
-        squareRect.left < keyRect.right &&
-        squareRect.right > keyRect.left &&
-        squareRect.top < keyRect.bottom &&
-        squareRect.bottom > keyRect.top
+        squareRect.left <= keyRect.right &&
+        squareRect.right >= keyRect.left &&
+        squareRect.top <= keyRect.bottom &&
+        squareRect.bottom >= keyRect.top
       ) {
-        onCollision();
+        onCollision('key');
+      }
+    }
+
+    if (door) {
+      const doorRect = door.getBoundingClientRect();
+
+      if (
+        squareRect.left <= doorRect.right &&
+        squareRect.right >= doorRect.left &&
+        squareRect.top <= doorRect.bottom &&
+        squareRect.bottom >= doorRect.top
+      ) {
+        onCollision('door');
       }
     }
   }, [position, onCollision]);
 
   return (
     <div
-      id="square"
+      id="movable-square"
       style={{
+        zIndex: 3,
         position: 'absolute',
         top: position.y,
         left: position.x,

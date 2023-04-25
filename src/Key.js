@@ -3,7 +3,7 @@ import React from 'react';
 function Key() {
   return (
     <div
-      id="body"
+      id="key"
       style={{
         position: 'absolute',
         top: '50%',
