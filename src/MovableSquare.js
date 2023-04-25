@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function MovableSquare({ moveLeft, moveRight, moveUp, moveDown }) {
+function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision }) {
   const roomWidth = 1500;
   const roomHeight = 800;
   const squareSize = 50;
@@ -43,8 +43,25 @@ function MovableSquare({ moveLeft, moveRight, moveUp, moveDown }) {
     return () => clearInterval(intervalId);
   }, [moveLeft, moveRight, moveUp, moveDown]);
 
+  useEffect(() => {
+    const squareRect = document.getElementById('square').getBoundingClientRect();
+    const key = document.getElementById('body');
+    if (key) {
+      const keyRect = key.getBoundingClientRect();
+      if (
+        squareRect.left < keyRect.right &&
+        squareRect.right > keyRect.left &&
+        squareRect.top < keyRect.bottom &&
+        squareRect.bottom > keyRect.top
+      ) {
+        onCollision();
+      }
+    }
+  }, [position, onCollision]);
+
   return (
     <div
+      id="square"
       style={{
         position: 'absolute',
         top: position.y,

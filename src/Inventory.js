@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Inventory() {
+function Inventory({ items }) {
   return (
     <div
       style={{
@@ -17,10 +17,11 @@ function Inventory() {
         justifyContent: 'space-evenly',
       }}
     >
-      <div style={{ width: 30, height: 30, backgroundColor: '#fff', border: '1px solid #333' }} />
-      <div style={{ width: 30, height: 30, backgroundColor: '#fff', border: '1px solid #333' }} />
-      <div style={{ width: 30, height: 30, backgroundColor: '#fff', border: '1px solid #333' }} />
-      <div style={{ width: 30, height: 30, backgroundColor: '#fff', border: '1px solid #333' }} />
+      {items.map((item, index) => (
+        <div key={index} style={{ width: 30, height: 30, backgroundColor: '#fff', border: '1px solid #333' }}>
+          {item}
+        </div>
+      ))}
     </div>
   );
 }

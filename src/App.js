@@ -10,6 +10,17 @@ function App() {
   const [moveRight, setMoveRight] = React.useState(false);
   const [moveUp, setMoveUp] = React.useState(false);
   const [moveDown, setMoveDown] = React.useState(false);
+  const [keyVisible, setKeyVisible] = React.useState(true);
+  const [inventory, setInventory] = React.useState([null, null, null, null]);
+
+  function handleKeyPickup() {
+    setKeyVisible(false);
+    setInventory(prevInventory => {
+      const updatedInventory = [...prevInventory];
+      updatedInventory[0] = <Key />;
+      return updatedInventory;
+    });
+  }
 
   React.useEffect(() => {
     function handleKeyDown(event) {
@@ -62,21 +73,26 @@ function App() {
   return (
     <div className="App">
       <header className="App-header" />
-      <Inventory />
+      <Inventory items={inventory} />
       <div style={{ position: 'relative', marginTop: '-475px' }}>
         <Room>
+          {keyVisible && (
+            <Key
+              onPickup={() => handleKeyPickup()}
+            />
+          )}
           <MovableSquare
             moveLeft={moveLeft}
             moveRight={moveRight}
             moveUp={moveUp}
             moveDown={moveDown}
-        />
-        <Key />
-      </Room>
+            onCollision={() => handleKeyPickup()}
+          />
+        </Room>
+      </div>
     </div>
-  </div>
-    );
+  );
 }
 
 export default App;
-    
+
