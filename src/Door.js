@@ -1,22 +1,24 @@
 import React from 'react';
 
-function Door({ isOpen }) {
+function Door({ isOpen, wall, color, name }) {
   const doorWidth = 100;
   const doorHeight = 10;
 
-  console.log('isOpen: ', isOpen); // TODO: Delete 
+  const bottom =  wall === 'south' ? -400 : 400 - 10;
+  const doorknobBottom = wall === 'south' ? 8 : -5;
   return (
     <div
-      id='door'
+      id={name}
+      name={name}
       style={{
         zIndex: 2,
         position: 'absolute',
-        bottom: -400,
+        bottom,
         left: '50%',
         transform: 'translateX(-50%)',
         width: doorWidth,
         height: doorHeight,
-        backgroundColor: isOpen ? '#f2f2f2' : 'brown',
+        backgroundColor: isOpen ? '#f2f2f2' : color,
         border: isOpen ? '0px' : '1px solid #333',
         boxSizing: 'border-box',
       }}
@@ -26,7 +28,7 @@ function Door({ isOpen }) {
         style={{
           zIndex: 2,
           position: 'absolute',
-          bottom: 8,
+          bottom: doorknobBottom,
           left: '25%',
           right: 20,
           transform: 'translateX(-50%)',

@@ -1,9 +1,10 @@
 import React from 'react';
 
-function Key() {
+function Key({ style, name }) {
   return (
     <div
       id="key"
+      name={name}
       style={{
         position: 'absolute',
         top: '50%',
@@ -18,6 +19,7 @@ function Key() {
         flexDirection: 'column',
         alignItems: 'center',
         cursor: 'pointer',
+        ...style,
       }}
     >
       <div
