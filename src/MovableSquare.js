@@ -107,7 +107,6 @@ function MovableSquare({ moveLeft, moveRight, moveUp, moveDown, onCollision, mes
 
   return (
     <div
-      id="movable-square"
       style={{
         zIndex: 3,
         position: 'absolute',

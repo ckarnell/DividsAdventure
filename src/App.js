@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Room from './Room';
-import MovableSquare from './MovableSquare';
 import Divid from './Divid';
 import Inventory from './Inventory';
 import Key from './Key';
@@ -25,7 +24,6 @@ function App() {
     setInventory(prevInventory => {
       const updatedInventory = [...prevInventory];
       updatedInventory[updatedInventory.indexOf(null)] = <Key  style={{transform: 'scale(0.45)', top: '-35%', left: '8%' }} />;
-      // updatedInventory[0] = <Key  style={{transform: 'scale(0.45)', top: '-35%', left: '8%' }} />;
       return updatedInventory;
     });
   }
@@ -104,7 +102,7 @@ function App() {
     {roomIndex === 0 ?
       <>
         <Room key="firstRoom">
-          <MovableSquare
+          <Divid
             key="squareRoom1"
             messageShowing={!!message}
             moveLeft={moveLeft}
@@ -138,7 +136,7 @@ function App() {
           <>
             <Door isOpen={door1Open} wall="north" color="brown" name="door1"/>
             <Room key="secondRoom" style={{ backgroundColor: '67B7D1' }}>
-              <MovableSquare
+              <Divid
                 key="squareRoom2"
                 messageShowing={!!message}
                 moveLeft={moveLeft}

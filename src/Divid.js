@@ -5,19 +5,21 @@ const css = `
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: ${100 / 3}px;
+    width: ${100 / 3}px;
     background-color: #f5f5f5;
+    margin: 0;
 }
 .head {
-    width: 100px;
-    height: 100px;
+    width: ${100/3}px;
+    height: ${100/3}px;
     background-color: #f1c27d;
     border-radius: 50%;
     position: relative;
 }
 .eye {
-    width: 20px;
-    height: 20px;
+    width: ${20 / 3}px;
+    height: ${20 / 3}px;
     background-color: #fff;
     border-radius: 50%;
     position: absolute;
@@ -25,8 +27,8 @@ const css = `
     left: 40%;
 }
 .nose {
-    width: 10px;
-    height: 10px;
+    width: ${10 / 3}px;
+    height: ${10 / 3}px;
     background-color: #f0e68c;
     border-radius: 50%;
     position: absolute;
@@ -34,38 +36,38 @@ const css = `
     left: 45%;
 }
 .mouth {
-    width: 30px;
-    height: 10px;
+    width: ${30 / 3}px;
+    height: ${10 / 3}px;
     background-color: #b22222;
-    border-radius: 5px;
+    border-radius: ${5 / 3}px;
     position: absolute;
     top: 70%;
     left: 35%;
 }
 .body {
-    width: 150px;
-    height: 200px;
+    width: ${150 / 3}px;
+    height: ${200 / 3}px;
     background-color: #f1c27d;
-    border-radius: 20px;
+    border-radius: ${20 / 3}px;
     position: relative;
-    margin-top: 20px;
+    margin-top: ${20 / 3}px;
     animation: walk 1s infinite;
 }
 .arm {
-    width: 50px;
-    height: 150px;
+    width: ${50 / 3}px;
+    height: ${150 / 3}px;
     background-color: #f1c27d;
-    border-radius: 20px;
+    border-radius: ${20 / 3}px;
     position: absolute;
     top: -50%;
     left: -20%;
     transform: rotate(-45deg);
 }
 .leg {
-    width: 50px;
-    height: 150px;
+    width: ${50 / 3}px;
+    height: ${150 / 3}px;
     background-color: #f1c27d;
-    border-radius: 20px;
+    border-radius: ${20 / 3}px;
     position: absolute;
     top: 70%;
     left: -20%;
@@ -84,93 +86,6 @@ const css = `
         transform: rotate(0deg);
     }
 }
-<!DOCTYPE html>
-<html>
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			background-color: #f5f5f5;
-		}
-		.head {
-			width: 100px;
-			height: 100px;
-			background-color: #f1c27d;
-			border-radius: 50%;
-			position: relative;
-		}
-		.eye {
-			width: 20px;
-			height: 20px;
-			background-color: #fff;
-			border-radius: 50%;
-			position: absolute;
-			top: 30%;
-			left: 40%;
-		}
-		.nose {
-			width: 10px;
-			height: 10px;
-			background-color: #f0e68c;
-			border-radius: 50%;
-			position: absolute;
-			top: 50%;
-			left: 45%;
-		}
-		.mouth {
-			width: 30px;
-			height: 10px;
-			background-color: #b22222;
-			border-radius: 5px;
-			position: absolute;
-			top: 70%;
-			left: 35%;
-		}
-		.body {
-			width: 150px;
-			height: 200px;
-			background-color: #f1c27d;
-			border-radius: 20px;
-			position: relative;
-			margin-top: 20px;
-			animation: walk 1s infinite;
-		}
-		.arm {
-			width: 50px;
-			height: 150px;
-			background-color: #f1c27d;
-			border-radius: 20px;
-			position: absolute;
-			top: -50%;
-			left: -20%;
-			transform: rotate(-45deg);
-		}
-		.leg {
-			width: 50px;
-			height: 150px;
-			background-color: #f1c27d;
-			border-radius: 20px;
-			position: absolute;
-			top: 70%;
-			left: -20%;
-			transform: rotate(45deg);
-			animation: walk 1s infinite alternate;
-			animation-delay: 0.5s;
-		}
-		@keyframes walk {
-			0% {
-				transform: rotate(0deg);
-			}
-			50% {
-				transform: rotate(20deg);
-			}
-			100% {
-				transform: rotate(0deg);
-			}
-		}
 `;
 
 function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShowing, spawnPosition }) {
@@ -190,6 +105,7 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
     initialPosition.y = roomHeight - 61;
   }
   const [position, setPosition] = useState(initialPosition);
+  const [facingLeft, setFacingLeft] = useState(false);
 
   useEffect(() => {
     let intervalId;
@@ -201,10 +117,12 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
           let y = prevPosition.y;
 
           if (moveLeft) {
+            setFacingLeft(true);
             x = Math.max(x - 10, 0);
           }
 
           if (moveRight) {
+            setFacingLeft(false);
             x = Math.min(x + 10, roomWidth - squareSize - 10);
           }
 
@@ -226,7 +144,7 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
 
   useEffect(() => {
     const key = document.getElementById('key');
-    const door = document.getElementById('door1');
+    const door1 = document.getElementById('door1');
     const door2 = document.getElementById('door2');
     const squareRect = document.getElementById('movable-square').getBoundingClientRect();
 
@@ -244,8 +162,8 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
       }
     }
 
-    if (door) {
-      const doorRect = door.getBoundingClientRect();
+    if (door1) {
+      const doorRect = door1.getBoundingClientRect();
 
       if (
         squareRect.left <= doorRect.right &&
@@ -253,7 +171,8 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
         squareRect.top <= doorRect.bottom &&
         squareRect.bottom >= doorRect.top
       ) {
-        onCollision(door.getAttribute('name'));
+        console.log('GOT HERE');
+        onCollision(door1.getAttribute('name'));
         return;
       }
     }
@@ -279,25 +198,33 @@ function Divid({ moveLeft, moveRight, moveUp, moveDown, onCollision, messageShow
   }, [position, onCollision]);
 
   return (
-    <>
-    <style>{css}</style>
-  <div id="movable-square" class="container">
-      <div class="person">
-          <div class="head">
-              <div class="eye"></div>
-              <div class="eye" style="left: 60%;"></div>
-              <div class="nose"></div>
-              <div class="mouth"></div>
-          </div>
-          <div class="body">
-              <div class="arm"></div>
-              <div class="leg"></div>
-              <div class="arm" style={{left: '120%', transform: 'rotate(225deg)'}}></div>
-              <div class="leg" style={{left: '120%', transform: 'rotate(-225deg)'}}></div>
+    <div id="movable-square" style={{
+      transform: `${facingLeft ? 'scaleX(-1)' : ''}`,
+      position: 'absolute',
+      top: position.y,
+      left: position.x,
+      width: squareSize,
+      height: squareSize,
+      // backgroundColor: '#333',
+    }}>
+      <style>{css}</style>
+      <div className="container">
+          <div className="person" id="person">
+              <div className="head">
+                  <div className="eye"></div>
+                  <div className="eye" style={{left: "60%"}}></div>
+                  <div className="nose"></div>
+                  <div className="mouth"></div>
+              </div>
+              <div className="body">
+                  <div className="arm"></div>
+                  <div className="leg"></div>
+                  <div className="arm" style={{left: '120%', transform: 'rotate(225deg)'}}></div>
+                  <div className="leg" style={{left: '120%', transform: 'rotate(-225deg)'}}></div>
+              </div>
           </div>
       </div>
-  </div>
-    </>
+    </div>
   );
 }
 
